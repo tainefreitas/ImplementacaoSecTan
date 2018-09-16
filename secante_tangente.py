@@ -61,6 +61,22 @@ def tangente_prec(x_0, prec, func_escolhida):
             k = k +1
     return x_linha
 
+#Metodo da Tangente (iteracoes)
+def tangente_iteracoes(x_0, iteracoes, func_escolhida):
+    print ("Iteracao 0:")
+    print ("x_linha: %f" %x_0)
+    print ("f_barra_x: %f" %f_x(x_0, func_escolhida))
+    k=1
+    while k <= iteracoes:
+        x_1 = x_0 - (f_x(x_0, func_escolhida)/f_linha_x(x_0, func_escolhida))
+        print ("Iteracao %d:" %k)
+        print ("x_linha: %f" %x_1)
+        print ("f_barra_x*: %f" %f_x(x_1, func_escolhida))
+        x_0 = x_1
+        k = k +1
+    return x_1
+
+
 #Metodo da Secante
 def secante_prec(x_0, x_1, prec, func_escolhida):
     if (abs(f_x(x_0, func_escolhida)) < prec):
@@ -93,6 +109,24 @@ def secante_prec(x_0, x_1, prec, func_escolhida):
     return x
 
 #Metodo da secante (iteracoes)
+def secante_iteracoes(x_0, x_1, iteracoes, func_escolhida):
+    print ("Iteracao 0:")
+    print ("x_0: %f" %x_0)
+    print ("x_1: %f" %x_1)
+    print ("f_barra_x: %f" %f_x(x_0, func_escolhida))
+    k = 1
+    while k <=iteracoes:
+        x_2 = x_1 - f_x(x_1, func_escolhida)*((x_1 - x_0)/(f_x(x_1, func_escolhida)-f_x(x_0, func_escolhida)))
+        aux = x_2 - x_1
+        print ("Iteracao %d:" %k)
+        print ("x_0: %f" %x_0)
+        print ("x_1: %f" %x_1)
+        print ("f_x_2: %f" %f_x(x_2, func_escolhida))
+        print ("x_2-x - x_1: %f" %aux)
+        x_0 = x_1
+        x_1 = x_2
+        k = k+1
+    return x_2
 
 
 
@@ -115,7 +149,7 @@ def menu():
         print("3) e^x-3x")
         print("4) 2.75x^3+18x^2-21x-12")
         func_escolhida = int (input("Digite a funcao escolhida:\n")) 
-        secante_prec(x0, x1, prec, func_escolhida)     
+        secante_prec(x_0, x_1, prec, func_escolhida)     
         
     elif escolha == 2:
         x_0 = float(input("Digite o valor inicial de x0:\n"))
@@ -127,6 +161,7 @@ def menu():
         print("3) e^x-3x")
         print("4) 2.75x^3+18x^2-21x-12")
         func_escolhida = int (input("Digite a funcao escolhida:\n"))
+        secante_iteracoes(x_0, x_1, iteracoes, func_escolhida)
 
     elif escolha == 3:
         x_0 = float(input("Digite o valor de x0:\n"))
@@ -148,6 +183,7 @@ def menu():
         print("3) e^x-3x")
         print("4) 2.75x^3+18x^2-21x-12")
         func_escolhida = int (input("Digite a funcao escolhida:\n"))
+        tangente_iteracoes(x_0, iteracoes, func_escolhida)
 
     elif escolha == 5:
         sys.exit(0)
